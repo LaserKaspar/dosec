@@ -1,0 +1,13 @@
+{
+	"folders": [
+        {
+            "path": "."
+        },
+        {
+            "path": "..\\pushyme"
+        }
+    ],
+    "settings": {
+        "liveServer.settings.multiRootWorkspaceName": "todolist.3"
+    }
+}

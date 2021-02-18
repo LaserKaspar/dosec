@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#733296">
+    <title>Dosec</title>
+    <link rel="apple-touch-icon" href="icon/logo-192-bg.png">
+    <link rel="shortcut icon" href="icon/logo-192.png" type="image/x-icon">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3b875e8537.js" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="overlay">
+        <div class="edit-element black">
+            <input class="header" placeholder="Edit element field"></input>
+            <textarea class="body" placeholder="Hier kommt der Text der einzelnen elemente hin"></textarea>
+            <div class="one-line">
+                <span class="choice-field" tabindex="0">
+                    <i class="fa fa-calendar datepicker-toggle-button" aria-hidden="true"></i>
+                    <span style="width: 100%; text-align: center;">Add Date/Time</span>
+                    <input type="datetime-local" class="datepicker-input">
+                </span>
+                <span class="choice-field" tabindex="0">
+                    <i class="fa fa-circle-o-notch datepicker-toggle-button" aria-hidden="true"></i>
+                    <span style="width: 100%; text-align: center;">Set Color</span>
+                    <input type="color" class="datepicker-input">
+                </span>
+            </div>
+            <span class="button" id="edit"><i class="far fa-save"></i></span>
+        </div>
+    </div>
+    <div id="pagers">
+        <span class="pager button" id="pager-side"></span>
+        <span class="pager button active" id="pager-main"></span>
+    </div>
+    <div id="wrapper">
+        <div id="container">
+            <div id="scroll-wrapper">
+                <div class="side content">
+                    <span class="button" id="share"><i class="fas fa-share-alt"></i></span>
+
+                    <a href="/">
+                        <h1 class="heading">
+                            DOSEC
+                        </h1>
+                    </a>
+
+                    <input type="text" value="oiuwehfp2pgw9ep8zfphiuap23f" placeholder="Your Key" id="user-key">
+                    
+                    <p>
+                        <label class="checkbox-container">
+                            Encrypt
+                            <input type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="checkbox-container">
+                            Links
+                            <input type="checkbox" checked>
+                            <span class="checkmark"></span>
+                        </label>
+                    </p>
+                    <p>
+                        <label class="checkbox-container">
+                            Show hidden elements
+                            <input type="checkbox" id="show-hidden">
+                            <span class="checkmark"></span>
+                            <div class="hidden">woring</div>
+                        </label>
+                    </p>
+
+                    <div class="settings">
+                        <p>
+                            <strong>Toggle</strong>
+                        </p>
+                        <p>
+                            <label class="checkbox-container">
+                                black
+                                <input type="checkbox" class="color-checkbox" id="black">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                blue
+                                <input type="checkbox" class="color-checkbox" id="blue">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                green
+                                <input type="checkbox" class="color-checkbox" id="green">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                magenta
+                                <input type="checkbox" class="color-checkbox" id="magenta">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                orange
+                                <input type="checkbox" class="color-checkbox" id="orange">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                red
+                                <input type="checkbox" class="color-checkbox" id="red">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="checkbox-container">
+                                yellow
+                                <input type="checkbox" class="color-checkbox" id="yellow">
+                                <span class="checkmark"></span>
+                            </label>
+                        </p>
+                    </div>
+                    <div class="settings">
+                        <p>
+                            <strong>Sort by</strong>
+                        </p>
+                        <p>
+                            <select id="sort-dropdown">
+                                <option>Date</option>
+                                <option selected>Color</option>
+                                <option>Order</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div id="scroll-wrapper">
+                <div class="main content">
+                    <div id="searchbar-container">
+                        <input type="text" placeholder="Search..." id="searchbar-search" onkeyup="filterSearch()" results="0">
+                        <i class="fa fa-search" id="searchbar-icon"></i>
+                    </div>
+                    <span class="button" id="add">+</span>
+
+                    <!-- handlebars -->
+                    <div class="handlebars">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="register-service-worker.js"></script> 
+
+    <script id="cell-handlebar" type="text/x-handlebars-template">
+        <div class="cell {{color}}" meta-sorting_order="{{sorting_order}}">
+            <i class="fas fa-ellipsis-h button three-dots"></i>
+        
+            <b>{{title}}</b>
+            {{{bothset title content}}}
+            <p>
+            {{parsecontent content}}
+            </p>
+        </div>
+    </script>
+    <script type="text/javascript" src="manage-db.js"></script>
+    <script type="text/javascript" src="cell-creation.js"></script> 
+    <script type="text/javascript" src="new-edit-cell.js"></script> 
+    
+    <script type="text/javascript" src="shortcuts.js"></script>
+    <script type="text/javascript" src="user-management.js"></script> 
+    <script type="text/javascript" src="navigation-bar.js"></script>
+    <script>
+
+        /*
+        var cell_jsons = [
+            {color: "red", title: "Search bar", content: "Eine suchleiste einbauen", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "qq_dd_bb", order: "1"}},
+            {color: "green", title: "Gruppierung", content: "Gruppierung durch #gruppenname und anderem", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "qq_xx_bb", order: "2"}},
+            {color: "blue", title: "Shortcuts", content: "S -> search \n N -> New \n D -> Sort by Date \n C -> Sort by Color \n O -> Sort by Order", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "qq_dd_bb", order: "3"}},
+            {color: "orange", title: "Great", content: "Hello this is a test message made by a handlebar", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "qq_aa_bb", order: "1"}},
+            {color: "yellow", title: "Only title", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "aa_aa_bb", order: "5"}},
+            {color: "black", content: "Only content", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "aa_ff_ll", order: "6"}},
+            {color: "black", title: "", content: "Only content but title set to \"\"", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "aa_ff_ll", order: "in base 32 hex"}},
+        ]
+        */
+
+        /*
+        var cell_html;
+        cell_jsons.forEach(cell => {
+            cell_html = cell_handlebar(cell);
+            insertAndSort($(cell_html));
+        });
+        */
+
+    </script>
+    <script type="text/javascript" src="cell-interactions.js"></script> 
+</body>
+</html>
