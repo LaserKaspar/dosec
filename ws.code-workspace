@@ -8,6 +8,11 @@
         }
     ],
     "settings": {
-        "liveServer.settings.multiRootWorkspaceName": "todolist.3"
+        "liveServer.settings.multiRootWorkspaceName": "todolist.3",
+        "workbench.colorCustomizations": {
+            "statusBar.background": "#691d7c",
+            "statusBar.foreground": "#ffffff",
+            "statusBarItem.hoverBackground": "#7a3c8a"
+        }
     }
 }

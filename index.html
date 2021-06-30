@@ -20,21 +20,21 @@
 <body>
     <div id="overlay">
         <div class="edit-element black">
-            <input class="header" placeholder="Edit element field"></input>
-            <textarea class="body" placeholder="Hier kommt der Text der einzelnen elemente hin"></textarea>
+            <input class="cell-title" placeholder="Edit element field" tabindex="1"></input>
+            <textarea class="cell-content" placeholder="Hier kommt der Text der einzelnen elemente hin" tabindex="2"></textarea>
             <div class="one-line">
-                <span class="choice-field" tabindex="0">
+                <span class="choice-field" tabindex="3">
                     <i class="fa fa-calendar datepicker-toggle-button" aria-hidden="true"></i>
                     <span style="width: 100%; text-align: center;">Add Date/Time</span>
-                    <input type="datetime-local" class="datepicker-input">
+                    <input type="datetime-local" class="picker-input cell-date">
                 </span>
-                <span class="choice-field" tabindex="0">
+                <span class="choice-field" tabindex="4">
                     <i class="fa fa-circle-o-notch datepicker-toggle-button" aria-hidden="true"></i>
                     <span style="width: 100%; text-align: center;">Set Color</span>
-                    <input type="color" class="datepicker-input">
+                    <input type="color" class="picker-input cell-color">
                 </span>
             </div>
-            <span class="button" id="edit"><i class="far fa-save"></i></span>
+            <span class="button" id="edit" tabindex="5"><i class="far fa-save"></i></span>
         </div>
     </div>
     <div id="pagers">
@@ -43,11 +43,11 @@
     </div>
     <div id="wrapper">
         <div id="container">
-            <div id="scroll-wrapper">
+            <div id="scroll-wrapper" tabindex="-1">
                 <div class="side content">
                     <span class="button" id="share"><i class="fas fa-share-alt"></i></span>
 
-                    <a href="/">
+                    <a href="/" tabindex="-1">
                         <h1 class="heading">
                             DOSEC
                         </h1>
@@ -56,23 +56,23 @@
                     <input type="text" value="oiuwehfp2pgw9ep8zfphiuap23f" placeholder="Your Key" id="user-key">
                     
                     <p>
-                        <label class="checkbox-container">
+                        <label class="checkbox-container" tabindex="0">
                             Encrypt
-                            <input type="checkbox">
+                            <input type="checkbox" id="encrypt" tabindex="-1">
                             <span class="checkmark"></span>
                         </label>
                     </p>
                     <p>
-                        <label class="checkbox-container">
+                        <label class="checkbox-container" tabindex="0">
                             Links
-                            <input type="checkbox" checked>
+                            <input type="checkbox" id="links" checked tabindex="-1">
                             <span class="checkmark"></span>
                         </label>
                     </p>
                     <p>
-                        <label class="checkbox-container">
+                        <label class="checkbox-container" tabindex="0">
                             Show hidden elements
-                            <input type="checkbox" id="show-hidden">
+                            <input type="checkbox" id="show-hidden" tabindex="-1">
                             <span class="checkmark"></span>
                             <div class="hidden">woring</div>
                         </label>
@@ -83,39 +83,39 @@
                             <strong>Toggle</strong>
                         </p>
                         <p>
-                            <label class="checkbox-container">
+                            <label class="checkbox-container" tabindex="0">
                                 black
-                                <input type="checkbox" class="color-checkbox" id="black">
+                                <input type="checkbox" class="color-checkbox" id="black" tabindex="-1">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="checkbox-container">
+                            <label class="checkbox-container" tabindex="0">
                                 blue
-                                <input type="checkbox" class="color-checkbox" id="blue">
+                                <input type="checkbox" class="color-checkbox" id="blue" tabindex="-1">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="checkbox-container">
+                            <label class="checkbox-container" tabindex="0">
                                 green
-                                <input type="checkbox" class="color-checkbox" id="green">
+                                <input type="checkbox" class="color-checkbox" id="green" tabindex="-1">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="checkbox-container">
+                            <label class="checkbox-container" tabindex="0">
                                 magenta
-                                <input type="checkbox" class="color-checkbox" id="magenta">
+                                <input type="checkbox" class="color-checkbox" id="magenta" tabindex="-1">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="checkbox-container">
+                            <label class="checkbox-container" tabindex="0">
                                 orange
-                                <input type="checkbox" class="color-checkbox" id="orange">
+                                <input type="checkbox" class="color-checkbox" id="orange" tabindex="-1">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="checkbox-container">
+                            <label class="checkbox-container" tabindex="0">
                                 red
-                                <input type="checkbox" class="color-checkbox" id="red">
+                                <input type="checkbox" class="color-checkbox" id="red" tabindex="-1">
                                 <span class="checkmark"></span>
                             </label>
-                            <label class="checkbox-container">
+                            <label class="checkbox-container" tabindex="0">
                                 yellow
-                                <input type="checkbox" class="color-checkbox" id="yellow">
+                                <input type="checkbox" class="color-checkbox" id="yellow" tabindex="-1">
                                 <span class="checkmark"></span>
                             </label>
                         </p>
@@ -134,8 +134,8 @@
                     </div>
                 </div>
             </div>
-            <div id="scroll-wrapper">
-                <div class="main content">
+            <div id="scroll-wrapper" tabindex="-1">
+                <div class="main content" tabindex="-1">
                     <div id="searchbar-container">
                         <input type="text" placeholder="Search..." id="searchbar-search" onkeyup="filterSearch()" results="0">
                         <i class="fa fa-search" id="searchbar-icon"></i>
@@ -164,12 +164,15 @@
             </p>
         </div>
     </script>
+
     <script type="text/javascript" src="manage-db.js"></script>
+    <script type="text/javascript" src="user-management.js"></script> 
+
     <script type="text/javascript" src="cell-creation.js"></script> 
-    <script type="text/javascript" src="new-edit-cell.js"></script> 
+    <script type="text/javascript" src="cell-new-edit.js"></script>
+    <script type="text/javascript" src="cell-interactions.js"></script>
     
     <script type="text/javascript" src="shortcuts.js"></script>
-    <script type="text/javascript" src="user-management.js"></script> 
     <script type="text/javascript" src="navigation-bar.js"></script>
     <script>
 
@@ -194,6 +197,5 @@
         */
 
     </script>
-    <script type="text/javascript" src="cell-interactions.js"></script> 
 </body>
 </html>

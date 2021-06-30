@@ -82,13 +82,13 @@ body {
     box-shadow: 0px 0px 4px var(--acent-color);
 }
 
-.datepicker-toggle-button {
+.picker-toggle-button {
     left: 0;
     top: 0;
     height: 100%;
 }
 
-.datepicker-input {
+.picker-input {
     position: absolute;
     left: 0;
     top: 0;
@@ -98,7 +98,7 @@ body {
     cursor: pointer;
     box-sizing: border-box;
 }
-.datepicker-input::-webkit-calendar-picker-indicator {
+.picker-input::-webkit-calendar-picker-indicator {
     position: absolute;
     left: 0;
     top: 0;
@@ -108,7 +108,7 @@ body {
     padding: 0;
     cursor: pointer;
 }
-.datepicker-input i {
+.picker-input i {
     color: var(--primary);
     margin: 10px;
 }
@@ -151,7 +151,7 @@ body {
     display: block;
 }
 
-.edit-element .header {
+.edit-element .cell-title {
     width: calc(100% - 20px);
     text-align: center;
     background-color: var(--secondary);
@@ -163,7 +163,7 @@ body {
     font-size: 16px;
 }
 
-.edit-element .body {
+.edit-element .cell-content {
     width: calc(100% - 30px);
     background-color: var(--secondary);
     padding: 15px;
@@ -177,19 +177,19 @@ body {
     margin-bottom: 10px;
 }
 
-.edit-element .body::-webkit-scrollbar {
+.edit-element .cell-content::-webkit-scrollbar {
     width: 10px;
     cursor: pointer;
 }
-.edit-element .body::-webkit-scrollbar-track {
+.edit-element .cell-content::-webkit-scrollbar-track {
     background: var(--secondary); 
     cursor: pointer;
 }
-.edit-element .body::-webkit-scrollbar-thumb {
+.edit-element .cell-content::-webkit-scrollbar-thumb {
     background: var(--primary); 
     cursor: pointer;
 }
-.edit-element .body::-webkit-scrollbar-thumb:hover {
+.edit-element .cell-content::-webkit-scrollbar-thumb:hover {
     background: var(--acent-color);
     cursor: pointer;
 }
@@ -437,6 +437,13 @@ span.button:hover {
     transition-duration: 400ms;
     filter: brightness(85%);
 }
+span.button:focus {
+    outline: none;
+    box-shadow: 0px 0px 20px -4px rgba(0,0,0,0.75);
+    transition-duration: 400ms;
+    filter: brightness(85%);
+    box-shadow: 0px 0px 4px var(--acent-color);
+}
 span.button#add {
     height: 40px;
     width: 40px;
@@ -535,6 +542,12 @@ span.pager {
 
 .checkbox-container:hover input ~ .checkmark {
     background-color: #cacaca;
+}
+.checkbox-container:focus {
+    outline: none;
+}
+.checkbox-container:focus input ~ .checkmark {
+    background-color: #727272;
 }
 .checkbox-container input:checked ~ .checkmark {
     background-color: var(--acent-color);

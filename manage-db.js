@@ -1,7 +1,7 @@
 //*----------------*
 //      init
 //*----------------*
-var db = openDatabase('DosecData', '1.0', 'Local storage for Dosec tasks.', 2 * 1024 * 1024);  
+const db = openDatabase('DosecData', '1.0', 'Local storage for Dosec tasks.', 2 * 1024 * 1024);  
 
 db.transaction(function populateDB(tx) {
     tx.executeSql("SELECT COUNT(*) FROM sqlite_master WHERE type='table' and name='cells'", [],
@@ -31,18 +31,21 @@ function editFromDB() {
     console.log("Not Implemented");
 }
 function addToDB(json) {
+    console.log("add to db " + json.metadata.order);
     db.transaction((tx) => {
+        
         tx.executeSql('INSERT INTO cells (title, content, color, sorting_order, date_modified, date_created, local)' + 
-            'VALUES (' + 
-            json.title + ', ' + 
-            json.content + ', ' + 
-            json.color + ', ' + 
-            json.sorting_order + ', ' + 
-            Date.now() + ', ' + 
-            Date.now() + ', ' + 
-            'true' + 
-            ')');
-    })
+            'VALUES ( \
+                "' + json.title + '", \
+                "' + json.content + '", \
+                "' + json.color + '", \
+                ' + json.metadata.order + ', ' +
+                json.metadata.date_modified + ', ' + 
+                json.metadata.date_created + ', \
+                false\
+            )'
+        );
+    });
 }
 function removeFromDB() {
     console.log("Not Implemented");

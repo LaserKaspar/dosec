@@ -14,11 +14,10 @@ $("body").on("click touchend", ".group", function(e) {
     $("#searchbar-search").focus().val($(this).text()).trigger("onkeyup");
 });
 
-function addCell(json, addToDB) {
-    if(addToDB)
-    {
-        
-    }
+function addCell(json, updateDB = true) {
+    if(updateDB)
+        addToDB(json);
+    renderCell(json);
 }
 
 function renderCell(json) {
