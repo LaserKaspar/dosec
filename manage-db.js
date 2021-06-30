@@ -92,8 +92,8 @@ function addToDB(json) {
     });
 
     tx.oncomplete = function(event) {
-        console.log("Transaction complete")
-        return event.target.result
+        console.log("Put complete");
+        return event.target.result;
     };
 
     /*
@@ -113,6 +113,12 @@ function addToDB(json) {
     });
     */
 }
-function removeFromDB() {
-    console.log("Not Implemented");
+function removeFromDB(key) {
+    const tx = db.transaction("cells", "readwrite");
+    const store = tx.objectStore("cells");
+    store.delete(parseInt(key));
+
+    tx.oncomplete = function(event) {
+        console.log("Deletion complete")
+    };
 }

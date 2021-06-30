@@ -15,11 +15,14 @@ $("body").on("click touchend", ".group", function(e) {
 });
 
 function addCell(json) {
-    renderCell(json);
-    console.log("Local_ID: " + addToDB(json)); //manage-db.js
+    renderCell(
+        json, 
+        addToDB(json) //manage-db.js
+    );
 }
 
 function renderCell(json, local_id) {
+    json["local_id"] = local_id;
     let newCell = $(cell_handlebar(json));
     insertAndSort(newCell, json.order);
     addCellEvents(newCell); //cell-interactions.js
@@ -82,20 +85,14 @@ function insertAndSort($new, sortingOrder) {
 function renderCells() {
     const tx = db.transaction("cells", "readonly");
     let store = tx.objectStore("cells");
-    let index = store.index("by_title");
-    let request = index.getAll();
-    
-    request.onsuccess = function() {
-        let matches = request.result;
-        console.log(request.result);
-        if (matches !== undefined) {
-            // A match was found.
-            for (let i = 0; i < matches.length; i++) {
-                renderCell(matches[i], i);
-            }
-        } 
-        else {
-            // No match was found.
+
+    store.openCursor().onsuccess = function(event) {
+        const cursor = event.target.result;
+        if(cursor) {
+            renderCell(cursor.value, cursor.primaryKey);
+            cursor.continue();
+        } else {
+            console.log('Entries all displayed.');
         }
     };
 }

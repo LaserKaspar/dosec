@@ -65,8 +65,9 @@ function editElmt(element) {
 }
 
 function deleteElmt(element) {
-    console.log("Delete");
-    $(element).closest("div").remove();
-
-    removeFromDB();
+    console.log("Remove");
+    
+    const cell = $(element).closest("div")
+    removeFromDB(cell.attr("meta-local_id"));
+    cell.remove();
 }
