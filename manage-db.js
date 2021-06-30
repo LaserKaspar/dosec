@@ -1,6 +1,10 @@
+
 //*----------------*
 //      init
 //*----------------*
+
+//#region webSQL
+/*
 const db = openDatabase('DosecData', '1.0', 'Local storage for Dosec tasks.', 2 * 1024 * 1024);  
 
 db.transaction(function populateDB(tx) {
@@ -23,6 +27,53 @@ db.transaction(function populateDB(tx) {
         }
     );
 });
+*/
+//#endregion
+
+//#region indexedDB
+
+// migration guide: https://www.w3.org/TR/IndexedDB/
+
+function initDatabase() {
+
+}
+
+const request = indexedDB.open("dosec-data");
+let db;
+
+request.onupgradeneeded = function() {
+    // The database did not previously exist, so create object stores and indexes.
+    const db = request.result;
+    const store = db.createObjectStore("cells", { autoIncrement: true });
+    const titleIndex = store.createIndex("by_title", "title");
+    const contentIndex = store.createIndex("by_content", "content");
+    const colorIndex = store.createIndex("by_color", "color");
+    const sorting_orderIndex = store.createIndex("by_sorting_order", "sorting_order");
+    const date_createdIndex = store.createIndex("by_date_created", "date_created");
+    const date_modifiedIndex = store.createIndex("by_date_modified", "date_modified");
+    const deviceIDIndex = store.createIndex("by_deviceID", "deviceID");
+    const localIndex = store.createIndex("by_local", "local");
+  
+    // Populate with initial data.
+    store.put({
+        title: "Gruppierung", content: "Gruppierung durch #gruppenname und anderem", color: "green", 
+        sorting_order: 0, date_created: "invalid", date_modified: "", deviceID: "none", local: true,
+    });
+    store.put({
+        title: "Shortcuts", content: "S -> search \n N -> New \n D -> Sort by Date \n C -> Sort by Color \n O -> Sort by Order", color: "blue", 
+        sorting_order: 1, date_created: "invalid", date_modified: "", deviceID: "none", local: true,
+    });
+};
+
+request.onsuccess = function() {
+    db = request.result;
+    $.getScript("cell-creation.js", function() { // load cell renderer
+        renderCells();
+    });
+};
+
+//#endregion
+
 
 //*----------------*
 //  user triggered
@@ -31,7 +82,21 @@ function editFromDB() {
     console.log("Not Implemented");
 }
 function addToDB(json) {
-    console.log("add to db " + json.metadata.order);
+
+    const tx = db.transaction("cells", "readwrite");
+    const store = tx.objectStore("cells");
+    store.put({
+        title: json.title, content: json.content, color: json.color, 
+        sorting_order: json.metadata.order, date_created: json.metadata.date_created, date_modified: json.metadata.date_modified, 
+        deviceID: "Test", local: true,
+    });
+
+    tx.oncomplete = function(event) {
+        console.log("Transaction complete")
+        return event.target.result
+    };
+
+    /*
     db.transaction((tx) => {
         
         tx.executeSql('INSERT INTO cells (title, content, color, sorting_order, date_modified, date_created, local)' + 
@@ -46,6 +111,7 @@ function addToDB(json) {
             )'
         );
     });
+    */
 }
 function removeFromDB() {
     console.log("Not Implemented");

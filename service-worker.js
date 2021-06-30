@@ -68,6 +68,9 @@ self.addEventListener('fetch', function(event) {
                     Schicke dem user die Ergebnisse zurück
     */
 
+    // skip the request. if request is not made with http protocol
+    if (!(event.request.url.indexOf('http') === 0)) return; 
+
     if (event.request.method === 'POST') { // Wenn POST
         let successful = true;
         event.respondWith( //Wenn man online ist

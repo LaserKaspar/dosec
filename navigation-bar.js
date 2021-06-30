@@ -1,29 +1,31 @@
-//mouse nav
+
+$(function() {
+
+//#region mouseNav
 var navbar = false;
 $("body").on("mousemove", function(e) {
     if(userClickedButton)
         return;
 
     if(e.pageX < 30 && !navbar) {
+        console.log("Side")
+
         navbar = true;
-        scrollPoint = ".side"
-        $(scrollPoint)[0].scrollIntoView({behavior: "smooth", block: "start"});
+        $(".side")[0].scrollIntoView({behavior: "smooth", block: 'nearest', inline: 'end'});
         
         $(".pager.active").removeClass("active");
         $("#pager-side").addClass("active");
     }
     else if(e.pageX > $(".side")[0].offsetWidth + 20 && navbar) {
         navbar = false;
-        scrollPoint = ".main"
-        $(scrollPoint)[0].scrollIntoView({behavior: "smooth", block: "start"});
+        $(".main")[0].scrollIntoView({behavior: "smooth", block: 'nearest', inline: 'end'});
 
         $(".pager.active").removeClass("active");
         $("#pager-main").addClass("active");
     }
     else if(e.pageX > window.innerWidth - 30 && navbar) {
         navbar = false;
-        scrollPoint = ".main"
-        $(scrollPoint)[0].scrollIntoView({behavior: "smooth", block: "start"});
+        $(".main")[0].scrollIntoView({behavior: "smooth", block: 'nearest', inline: 'end'});
 
         $(".pager.active").removeClass("active");
         $("#pager-main").addClass("active");
@@ -34,21 +36,18 @@ $(".side").mouseover(function() {
     userClickedButton = false;
 });
 $(".main").click(function() {
+    console.log("Main Element clicked")
     navbar = false;
     userClickedButton = false;
-    $(".main")[0].scrollIntoView({behavior: "smooth", block: "start"});
+    $(".main")[0].scrollIntoView({behavior: "smooth", block: 'nearest', inline: 'end'});
 });
+//#endregion
 
-//Pagers
-var userClickedButton = false;
-var scrollPoint = ".main";
+//#region Pagers
+let userClickedButton = false;
 $(".pager").on("click touchend", function(e) {
-    var scrollTo = "." + this.getAttribute('id').split("-")[1];
+    let scrollPoint = "." + this.getAttribute('id').split("-")[1];
 
-    if(scrollPoint == scrollTo)
-        return
-    else
-        scrollPoint = scrollTo;
 
     if(scrollPoint == ".side") {
         userClickedButton = true;
@@ -59,12 +58,13 @@ $(".pager").on("click touchend", function(e) {
         navbar = false;
     }
 
-    $(scrollPoint)[0].scrollIntoView({behavior: "smooth", block: "start"});
+    $(scrollPoint)[0].scrollIntoView({behavior: "smooth", block: 'nearest', inline: 'end'});
     $(".pager.active").removeClass("active");
     $(this).addClass("active");
 });
+//#endregion
 
-//search bar
+//#region searchBar
 function filterSearch() {
     var input, filter, container, cell, a, i, txtValue;
     input = document.getElementById("searchbar-search");
@@ -80,8 +80,9 @@ function filterSearch() {
         }
     }
 }
+//#endregion
 
-//color exclude
+//#region colorExclude
 var check_count = 0;
 $(".color-checkbox").click(function() {
     if(this.checked) {
@@ -101,4 +102,7 @@ $(".color-checkbox").click(function() {
             $("." + this.getAttribute("id")).addClass("hidden");
         }
     }   
+});
+//#endregion
+
 });

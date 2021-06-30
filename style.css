@@ -320,6 +320,7 @@ textarea:focus {
 .main.content {
     padding: 10px 20px 70px 20px;
     text-align: center;
+    outline: none;
 }
 #searchbar-search {
     background-color: transparent;

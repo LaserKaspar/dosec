@@ -14,13 +14,12 @@ $("body").on("click touchend", ".group", function(e) {
     $("#searchbar-search").focus().val($(this).text()).trigger("onkeyup");
 });
 
-function addCell(json, updateDB = true) {
-    if(updateDB)
-        addToDB(json);
+function addCell(json) {
     renderCell(json);
+    console.log("Local_ID: " + addToDB(json)); //manage-db.js
 }
 
-function renderCell(json) {
+function renderCell(json, local_id) {
     let newCell = $(cell_handlebar(json));
     insertAndSort(newCell, json.order);
     addCellEvents(newCell); //cell-interactions.js
@@ -37,7 +36,6 @@ function insertAndSort($new, sortingOrder) {
     }
 
     const $first = $(".handlebars div:first");
-    console.log($first.attr('data-sorting_order'));
     if (sortingOrder >= $first.attr('data-sorting_order')) {
         $new.insertBefore($first);
         console.log("first");
@@ -45,7 +43,6 @@ function insertAndSort($new, sortingOrder) {
     }
 
     const $last = $(".handlebars div:last");
-    console.log($last);
     if (sortingOrder <= $last.attr('data-sorting_order')) {
         $new.insertAfter($last);
         console.log("last");
@@ -58,7 +55,6 @@ function insertAndSort($new, sortingOrder) {
     let $div = $(".handlebars div");
     do {
         count++;
-        console.log($div.length);
         var index = parseInt($div.length / 2)
         var $compare = $div.eq(index);
         var compare = $compare.attr('data-sorting_order');
@@ -83,6 +79,30 @@ function insertAndSort($new, sortingOrder) {
 }
 
 // "print" db to html
+function renderCells() {
+    const tx = db.transaction("cells", "readonly");
+    let store = tx.objectStore("cells");
+    let index = store.index("by_title");
+    let request = index.getAll();
+    
+    request.onsuccess = function() {
+        let matches = request.result;
+        console.log(request.result);
+        if (matches !== undefined) {
+            // A match was found.
+            for (let i = 0; i < matches.length; i++) {
+                renderCell(matches[i], i);
+            }
+        } 
+        else {
+            // No match was found.
+        }
+    };
+}
+
+
+/*
+// WebSQL
 db.transaction((tx) => {
     tx.executeSql("SELECT * FROM cells", [],
         function(tx, result) {
@@ -96,3 +116,4 @@ db.transaction((tx) => {
         }
     );
 });
+*/
