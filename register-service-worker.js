@@ -10,10 +10,21 @@ if ('serviceWorker' in navigator) {
 
         //serviceWorkerRegistration.showNotification("test", {icon: "icon/logo-192.png"});
 
+        if (registration.installing) { // reload on first page load to activate sw
+            const sw = registration.installing || registration.waiting;
+            sw.onstatechange = function() {
+                if (sw.state === 'installed') {
+                    // SW installed.  Refresh page so SW can respond with SW-enabled page.
+                    window.location.reload();
+                }
+            };
+        }
+
     }, function(err) {
         // registration failed :(
         console.log('ServiceWorker registration failed: ', err);
     });
+
 
     navigator.serviceWorker.ready.then(function(registration) {
         console.log('Service Worker Ready');
