@@ -67,6 +67,8 @@ request.onupgradeneeded = function() {
 
 request.onsuccess = function() {
     db = request.result;
+    
+    $.ajaxSetup({cache:true});
     $.getScript("cell-creation.js", function() { // load cell renderer
         renderCells();
     });

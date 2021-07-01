@@ -83,7 +83,7 @@ self.addEventListener('fetch', function(event) {
         console.log(successful ? "Responded with online data." : "User seems to be offline caching request..." );
     }
     else { // GET
-        if(event.request.url.endsWith(".php")) { // User will cells haben
+        if(event.request.url.endsWith(".php")) { // cells
             event.respondWith( //Wenn man online ist
                 fetch(event.request.clone())
                 .catch(function (error) { //Wenn man offline ist
@@ -110,8 +110,7 @@ self.addEventListener('fetch', function(event) {
                 })
             );
         }
-        else { // User will Website files eg. scripts, fonts, index...
-            php = false;
+        else { // Website files eg. scripts, fonts, index...
 
             event.respondWith(
                 caches.open(CACHE_NAME)
@@ -121,14 +120,15 @@ self.addEventListener('fetch', function(event) {
 
                     return cache.match(cache_url)
                     .then(function(response) {
-                        var fetchPromise = fetch(event.request).then(function(networkResponse) {
+                        var fetchPromise = fetch(event.request).then(function(networkResponse) { //online
                             cache.put(cache_url, networkResponse.clone());
                             return networkResponse;
-                        }).catch(error => { console.log(["You may be offline or your network connection is really slow...", error]) });
-                
+                        }).catch(error => { //offline
+                            console.log(["You may be offline or your network connection is really slow...", error, cache_url]) 
+                        });
                         // response contains cached data, if available
                         return response || fetchPromise;
-                    })
+                    });
                 })
             );
 
