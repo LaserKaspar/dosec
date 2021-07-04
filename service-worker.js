@@ -1,6 +1,7 @@
-var CACHE_NAME = 'todo-cache-v5';
+var CACHE_NAME = 'todo-cache-v6'; //change to trigger pwa update
 var FOLDER_NAME = 'post_requests';
 var IDB_VERSION = 1;
+
 var form_data;
 //blacklist in register-service-worker.js:blacklist
 
