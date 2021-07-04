@@ -1,5 +1,5 @@
 {
-  "background_color": "darkgray",
+  "background_color": "#1e2124",
   "name": "Dosec - Secure Todolist",
   "short_name": "Dosec",
   "description": "A simple but powerfull todolist.",
@@ -13,5 +13,5 @@
   ],
   "start_url": "index.html",
   "gcm_sender_id": "72898458537",
-  "theme_color": "whitesmoke"
+  "theme_color": "#733296"
 }
