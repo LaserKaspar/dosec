@@ -8,8 +8,6 @@ $("body").on("mousemove", function(e) {
         return;
 
     if(e.pageX < 30 && !navbar) {
-        console.log("Side")
-
         navbar = true;
         $(".side")[0].scrollIntoView({behavior: "smooth", block: 'nearest', inline: 'end'});
         

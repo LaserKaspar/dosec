@@ -1,3 +1,7 @@
+import { db } from './manage-db.js'
+import { addCellEvents } from './cell-interactions.js'
+import { addToDB } from './manage-db.js'
+
 Handlebars.registerHelper('json', function(context) {return JSON.stringify(context);});
 Handlebars.registerHelper('bothset', function(param1, param2) {return param1 != null && param1 != "" && param2 != null && param2 != "" ? "<br><br>" : ""});
 Handlebars.registerHelper('parsecontent', function(text) {
@@ -14,7 +18,7 @@ $("body").on("click touchend", ".group", function(e) {
     $("#searchbar-search").focus().val($(this).text()).trigger("onkeyup");
 });
 
-function addCell(json) {
+export function addCell(json) {
     renderCell(
         json, 
         addToDB(json) //manage-db.js
@@ -25,7 +29,7 @@ function renderCell(json, local_id) {
     json["local_id"] = local_id;
     let newCell = $(cell_handlebar(json));
     insertAndSort(newCell, json.order);
-    addCellEvents(newCell); //cell-interactions.js
+    addCellEvents(newCell);
 }
 
 function insertAndSort($new, sortingOrder) {
@@ -82,7 +86,7 @@ function insertAndSort($new, sortingOrder) {
 }
 
 // "print" db to html
-function renderCells() {
+export function renderCells() {
     const tx = db.transaction("cells", "readonly");
     let store = tx.objectStore("cells");
 

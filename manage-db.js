@@ -1,3 +1,4 @@
+import { renderCells } from "./cell-creation.js"
 
 //*----------------*
 //      init
@@ -39,7 +40,7 @@ function initDatabase() {
 }
 
 const request = indexedDB.open("dosec-data");
-let db;
+export let db;
 
 request.onupgradeneeded = function() {
     // The database did not previously exist, so create object stores and indexes.
@@ -68,10 +69,7 @@ request.onupgradeneeded = function() {
 request.onsuccess = function() {
     db = request.result;
     
-    $.ajaxSetup({cache:true});
-    $.getScript("cell-creation.js", function() { // load cell renderer
-        renderCells();
-    });
+    renderCells();
 };
 
 //#endregion
@@ -83,7 +81,7 @@ request.onsuccess = function() {
 function editFromDB() {
     console.log("Not Implemented");
 }
-function addToDB(json) {
+export function addToDB(json) {
 
     const tx = db.transaction("cells", "readwrite");
     const store = tx.objectStore("cells");
@@ -115,7 +113,7 @@ function addToDB(json) {
     });
     */
 }
-function removeFromDB(key) {
+export function removeFromDB(key) {
     const tx = db.transaction("cells", "readwrite");
     const store = tx.objectStore("cells");
     store.delete(parseInt(key));

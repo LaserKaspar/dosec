@@ -1,16 +1,19 @@
+import { addElement, closeElement } from './url-management.js';
+import { addCell } from './cell-creation.js'
+
 $(".main")[0].scrollIntoView({behavior: "smooth", block: "start"});
 
 $(".button#add").on("click", function() { // add new (/ edit) button
     $("#overlay").toggleClass("triggered");
     $("#overlay").addClass("animatable");
     $("#overlay .edit-element .cell-title").focus();
+    addElement();
 
     window.shortcutsAllowed = false;
 });
 $(".button#edit").on("click", function() { // save button
-    $("#overlay").toggleClass("triggered");
     $("#overlay").addClass("animatable");
-    window.shortcutsAllowed = true;
+    closeAdd("#overlay");
 
     let editor_window = $("#overlay .edit-element");
     console.log(editor_window);
@@ -30,7 +33,12 @@ $(".button#edit").on("click", function() { // save button
     addCell(cell_json);
 });
 $("#overlay").on("click", function() {
-    $(this).toggleClass("triggered");
-    window.shortcutsAllowed = true;
+    closeAdd(this);
 }).children().click(function(e) {e.stopPropagation();});
 
+function closeAdd(element) {
+    if($(element).hasClass("triggered"))
+        $(element).toggleClass("triggered");
+    window.shortcutsAllowed = true;
+    closeElement();
+}

@@ -1,3 +1,5 @@
+import { removeFromDB } from './manage-db.js'
+
 let dropdown;
 $("body").on("click touchend", ".three-dots", function(e) {
     e.stopPropagation();
@@ -10,9 +12,15 @@ $("body").on("click touchend", ".three-dots", function(e) {
     dropdown?.remove();
     let parent = $(this).parent();
     dropdown = parent.prepend(generateDropdown(parent)).children()[0];
+
+    let anchors = $(dropdown).children("a");
+
+    $(anchors[0]).on("click", (e) => { remindElmt(this) });
+    $(anchors[1]).on("click", (e) => { editElmt(this) });
+    $(anchors[2]).on("click", (e) => { deleteElmt(this) });
 });
 
-function addCellEvents(cell) {
+export function addCellEvents(cell) {
     /*
     $.data(cell, "foo", 52);
 
@@ -49,9 +57,9 @@ function addCellEvents(cell) {
 function generateDropdown(parent) {
     return `
         <span class=\"cell-dropdown\">
-            <a onclick="remindElmt(this)" href="javascript:void(0);">Reminder</a><br>
-            <a onclick="editElmt(this)" href="javascript:void(0);">Edit</a><br> 
-            <a onclick="deleteElmt(this)" href="javascript:void(0);" id="hoverRed">Delete</a><br> 
+            <a href="javascript:void(0);">Reminder</a><br>
+            <a href="javascript:void(0);">Edit</a><br> 
+            <a href="javascript:void(0);" id="hoverRed">Delete</a><br> 
         </span>
     `
 }
