@@ -5,11 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta name="theme-color" content="#733296">
 
-    <!--Disable Browser Cache-->
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-
     <title>Dosec</title>
     <link rel="apple-touch-icon" href="icon/logo-192-bg.png">
     <link rel="shortcut icon" href="icon/logo-192.png" type="image/x-icon">
@@ -49,7 +44,7 @@
     </div>
     <div id="wrapper">
         <div id="container">
-            <div id="scroll-wrapper" tabindex="-1">
+            <div class="scroll-wrapper" tabindex="-1">
                 <div class="side content">
                     <span class="button" id="share"><i class="fas fa-share-alt"></i></span>
 
@@ -143,10 +138,10 @@
                     </div>
                 </div>
             </div>
-            <div id="scroll-wrapper" tabindex="-1">
+            <div class="scroll-wrapper" tabindex="-1">
                 <div class="main content" tabindex="-1">
                     <div id="searchbar-container">
-                        <input type="text" placeholder="Search..." id="searchbar-search" onkeyup="filterSearch()" results="0">
+                        <input type="text" placeholder="Search..." id="searchbar-search" onkeyup="filterSearch()">
                         <i class="fa fa-search" id="searchbar-icon"></i>
                     </div>
                     <span class="button" id="add">+</span>
@@ -160,7 +155,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="register-service-worker.js"></script> 
+    <script rc="register-service-worker.js"></script> 
 
     <script id="cell-handlebar" type="text/x-handlebars-template">
         <div class="cell {{color}}" data-local_id="{{{local_id}}}" data-sorting_order="{{{sorting_order}}}">
@@ -168,20 +163,21 @@
         
             <b>{{title}}</b>
             {{{bothset title content}}}
+
             <p>
             {{parsecontent content}}
             </p>
         </div>
     </script>
 
-    <script type="module" type="text/javascript" src="manage-db.js"></script>
-    <script type="module" type="text/javascript" src="user-management.js"></script> 
+    <script type="module" src="manage-db.js"></script>
+    <script type="module" src="user-management.js"></script> 
 
-    <script type="module" type="text/javascript" src="cell-new-edit.js"></script>
-    <script type="module" type="text/javascript" src="cell-interactions.js"></script>
+    <script type="module" src="cell-new-edit.js"></script>
+    <script type="module" src="cell-interactions.js"></script>
     
-    <script type="module" type="text/javascript" src="shortcuts.js"></script>
-    <script type="module" type="text/javascript" src="navigation-bar.js"></script>
+    <script type="module" src="shortcuts.js"></script>
+    <script type="module" src="navigation-bar.js"></script>
     <script>
 
         /*

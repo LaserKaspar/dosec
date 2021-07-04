@@ -253,14 +253,14 @@ body {
     }
 }
 
-#scroll-wrapper {
+.scroll-wrapper {
     overflow-y: scroll;
     scroll-snap-align: center;
     -ms-overflow-style: none;
     scrollbar-width: none;
     height: inherit;
 }
-#scroll-wrapper::-webkit-scrollbar {
+.scroll-wrapper::-webkit-scrollbar {
     display: none;
 }
 
