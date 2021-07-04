@@ -18,14 +18,17 @@ $("body").on("click touchend", ".group", function(e) {
     $("#searchbar-search").focus().val($(this).text()).trigger("onkeyup");
 });
 
-export function addCell(json) {
-    renderCell(
-        json, 
-        addToDB(json) //manage-db.js
-    );
+export async function addCell(json) {
+    addToDB(json).then((response) => {
+        renderCell(
+            json,
+            response
+        );
+    })
 }
 
-function renderCell(json, local_id) {
+async function renderCell(json, local_id) {
+    console.log("renderCell: " + local_id)
     json["local_id"] = local_id;
     let newCell = $(cell_handlebar(json));
     insertAndSort(newCell, json.order);

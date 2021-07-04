@@ -56,11 +56,11 @@ request.onupgradeneeded = function() {
     const localIndex = store.createIndex("by_local", "local");
   
     // Populate with initial data.
-    store.put({
+    store.add({
         title: "Gruppierung", content: "Gruppierung durch #gruppenname und anderem", color: "green", 
         sorting_order: 0, date_created: "invalid", date_modified: "", deviceID: "none", local: true,
     });
-    store.put({
+    store.add({
         title: "Shortcuts", content: "S -> search \n N -> New \n D -> Sort by Date \n C -> Sort by Color \n O -> Sort by Order", color: "blue", 
         sorting_order: 1, date_created: "invalid", date_modified: "", deviceID: "none", local: true,
     });
@@ -80,21 +80,24 @@ request.onsuccess = function() {
 //*----------------*
 function editFromDB() {
     console.log("Not Implemented");
+
+    //use store store.put to update
 }
 export function addToDB(json) {
+    return new Promise(function(resolve, reject) {
+        const tx = db.transaction("cells", "readwrite");
+        const store = tx.objectStore("cells");
+    
+        var response = store.add({
+            title: json.title, content: json.content, color: json.color, 
+            sorting_order: json.order, date_created: json.date_created, date_modified: json.date_modified, 
+            deviceID: "Test", local: true,
+        });
 
-    const tx = db.transaction("cells", "readwrite");
-    const store = tx.objectStore("cells");
-    store.put({
-        title: json.title, content: json.content, color: json.color, 
-        sorting_order: json.metadata.order, date_created: json.metadata.date_created, date_modified: json.metadata.date_modified, 
-        deviceID: "Test", local: true,
+        response.onsuccess = function(event) {
+            resolve(event.target.result);
+        };
     });
-
-    tx.oncomplete = function(event) {
-        console.log("Put complete");
-        return event.target.result;
-    };
 
     /*
     db.transaction((tx) => {

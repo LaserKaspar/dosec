@@ -21,13 +21,10 @@ $(".button#edit").on("click", function() { // save button
         color: editor_window.find(".cell-color").val(),
         title: editor_window.find(".cell-title").val(), 
         content: editor_window.find(".cell-content").val(), 
-        metadata: 
-        {
-            date_created: Date.now(), //if editing -> dont change
-            date_modified: Date.now(), 
-            uniqe_id: "qq_dd_bb", //generate with local Device id
-            order: 1 //append
-        }
+        date_created: Date.now(), //if editing -> dont change
+        date_modified: Date.now(), 
+        uniqe_id: "qq_dd_bb", //generate with local Device id
+        sorting_order: 1 //append
     }
 
     addCell(cell_json);
