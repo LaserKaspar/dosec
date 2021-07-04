@@ -1,4 +1,4 @@
-var UPDATE_Version = '0.1.35';
+var UPDATE_VERSION = '0.1.36';
 var CACHE_NAME = 'todo-cache-v6'; //change to trigger pwa update
 var FOLDER_NAME = 'post_requests';
 var IDB_VERSION = 1;
@@ -119,10 +119,10 @@ self.addEventListener('fetch', function(event) {
                 .then(function(cache) {
                     var cache_url = event.request.url.split("#")[0];
                     if(cache_url.endsWith("/")) { cache_url += "index.html"; }
-
+                    
                     return cache.match(cache_url)
                     .then(function(response) {
-                        var fetchPromise = fetch(event.request).then(function(networkResponse) { //online
+                        var fetchPromise = fetch(event.request.url + "?" + UPDATE_VERSION).then(function(networkResponse) { //online
                             cache.put(cache_url, networkResponse.clone());
                             return networkResponse;
                         }).catch(error => { //offline

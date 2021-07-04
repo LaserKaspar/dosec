@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta name="theme-color" content="#733296">
+    <meta name="description" content="Fast and Secure Todo PWA.">
 
     <title>Dosec</title>
     <link rel="apple-touch-icon" href="icon/logo-192-bg.png">
@@ -16,6 +17,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+
+    <script src="register-service-worker.js" async></script>
+
+    <script type="module" src="manage-db.js" async></script>
+    <script type="module" src="user-management.js" defer></script> 
+    <script type="module" src="url-management.js" async></script>
+
+    <script type="module" src="cell-new-edit.js" defer></script>
+    <script type="module" src="cell-interactions.js" defer></script>
+    <script type="module" src="cell-creation.js" defer></script>
+    
+    <script type="module" src="shortcuts.js" defer></script>
+    <script type="module" src="navigation-bar.js" defer></script>
 </head>
 
 <body>
@@ -78,7 +92,6 @@
                             Show hidden elements
                             <input type="checkbox" id="show-hidden" tabindex="-1">
                             <span class="checkmark"></span>
-                            <div class="hidden">woring</div>
                         </label>
                     </p>
 
@@ -155,8 +168,6 @@
         </div>
     </div>
 
-    <script src="register-service-worker.js"></script> 
-
     <script id="cell-handlebar" type="text/x-handlebars-template">
         <div class="cell {{color}}" data-local_id="{{{local_id}}}" data-sorting_order="{{{sorting_order}}}">
             <i class="fas fa-ellipsis-h button three-dots"></i>
@@ -168,38 +179,6 @@
             {{parsecontent content}}
             </p>
         </div>
-    </script>
-
-    <script type="module" src="manage-db.js"></script>
-    <script type="module" src="user-management.js"></script> 
-
-    <script type="module" src="cell-new-edit.js"></script>
-    <script type="module" src="cell-interactions.js"></script>
-    
-    <script type="module" src="shortcuts.js"></script>
-    <script type="module" src="navigation-bar.js"></script>
-    <script>
-
-        /*
-        var cell_jsons = [
-            {color: "red", title: "Search bar", content: "Eine suchleiste einbauen", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "qq_dd_bb", order: "1"}},
-            {color: "green", title: "Gruppierung", content: "Gruppierung durch #gruppenname und anderem", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "qq_xx_bb", order: "2"}},
-            {color: "blue", title: "Shortcuts", content: "S -> search \n N -> New \n D -> Sort by Date \n C -> Sort by Color \n O -> Sort by Order", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "qq_dd_bb", order: "3"}},
-            {color: "orange", title: "Great", content: "Hello this is a test message made by a handlebar", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "qq_aa_bb", order: "1"}},
-            {color: "yellow", title: "Only title", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "aa_aa_bb", order: "5"}},
-            {color: "black", content: "Only content", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "aa_ff_ll", order: "6"}},
-            {color: "black", title: "", content: "Only content but title set to \"\"", metadata: {date_created: "invalid", date_modified: "", uniqe_id: "aa_ff_ll", order: "in base 32 hex"}},
-        ]
-        */
-
-        /*
-        var cell_html;
-        cell_jsons.forEach(cell => {
-            cell_html = cell_handlebar(cell);
-            insertAndSort($(cell_html));
-        });
-        */
-
     </script>
 </body>
 </html>

@@ -80,9 +80,9 @@ function editElmt(element) {
 }
 
 function deleteElmt(element) {
-    dropdown?.remove();
-
     const cell = $(element).closest(".cell");
     removeFromDB(cell.attr("data-local_id"));
     cell.remove();
+
+    dropdown?.remove();
 }
