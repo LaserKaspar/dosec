@@ -7,7 +7,8 @@ $("body").on("click touchend", ".three-dots", function(e) {
     dropdown?.remove();
 
     $("body").on("click touchend", unbind);
-    function unbind(e) {
+    function unbind(event) {
+        if($(event.target).find(".cell-dropdown").text() == "") { return } // if clicking on dropdown
         $("body").off("click touchend", unbind);
         dropdown?.remove();
     }
@@ -59,22 +60,28 @@ export function addCellEvents(cell) {
 function generateDropdown(parent) {
     return `
         <span class=\"cell-dropdown\">
-            <a href="javascript:void(0);">Reminder</a><br>
-            <a href="javascript:void(0);">Edit</a><br> 
-            <a href="javascript:void(0);" id="hoverRed">Delete</a><br> 
+            <a href="javascript:void(0);">Reminder</a>
+            <a href="javascript:void(0);">Edit</a>
+            <a href="javascript:void(0);" id="hoverRed">Delete</a>
         </span>
     `
 }
 
 function remindElmt(element) {
+    dropdown?.remove();
+
     console.log("not Implemented");
 }
 
 function editElmt(element) {
+    dropdown?.remove();
+
     console.log("not Implemented");
 }
 
 function deleteElmt(element) {
+    dropdown?.remove();
+
     const cell = $(element).closest(".cell");
     removeFromDB(cell.attr("data-local_id"));
     cell.remove();
