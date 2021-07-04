@@ -27,11 +27,11 @@ export async function addCell(json) {
     })
 }
 
-async function renderCell(json, local_id) {
-    console.log("renderCell: " + local_id)
-    json["local_id"] = local_id;
+async function renderCell(user_json, db_json) {
+    let json = $.extend(user_json, db_json);
+
     let newCell = $(cell_handlebar(json));
-    insertAndSort(newCell, json.order);
+    insertAndSort(newCell, json.sorting_order);
     addCellEvents(newCell);
 }
 
@@ -78,14 +78,14 @@ function insertAndSort($new, sortingOrder) {
             console.log($compare.index());
             $div = $div.slice(0, index);
         }
-        if (count > 100) {
+        if (count > 1000) {
             break;
         }
     }
     while ($div.length > 1);
 
-    if (sortingOrder === compare || sortingOrder > compare) { $new.insertBefore($compare); }
-    else { $new.insertAfter($compare); }
+    if (sortingOrder === compare || sortingOrder > compare) { $new.insertAfter($compare); }
+    else { $new.insertBefore($compare); }
 }
 
 // "print" db to html
@@ -96,7 +96,7 @@ export function renderCells() {
     store.openCursor().onsuccess = function(event) {
         const cursor = event.target.result;
         if(cursor) {
-            renderCell(cursor.value, cursor.primaryKey);
+            renderCell(cursor.value, { local_id: cursor.primaryKey });
             cursor.continue();
         } else {
             console.log('Entries all displayed.');

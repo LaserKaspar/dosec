@@ -34,7 +34,6 @@ $(".side").mouseover(function() {
     userClickedButton = false;
 });
 $(".main").click(function() {
-    console.log("Main Element clicked")
     navbar = false;
     userClickedButton = false;
     $(".main")[0].scrollIntoView({behavior: "smooth", block: 'nearest', inline: 'end'});

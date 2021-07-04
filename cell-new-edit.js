@@ -11,31 +11,33 @@ $(".button#add").on("click", function() { // add new (/ edit) button
 
     window.shortcutsAllowed = false;
 });
-$(".button#edit").on("click", function() { // save button
-    $("#overlay").addClass("animatable");
-    closeAdd("#overlay");
 
-    let editor_window = $("#overlay .edit-element");
-    console.log(editor_window);
+const editor_window = $("#overlay .edit-element");
+
+$(".button#edit").on("click", function() { // save button
+
     let cell_json = {
         color: editor_window.find(".cell-color").val(),
-        title: editor_window.find(".cell-title").val(), 
-        content: editor_window.find(".cell-content").val(), 
+        title: editor_window.find(".cell-title").val().trim(), 
+        content: editor_window.find(".cell-content").val().trim(), 
         date_created: Date.now(), //if editing -> dont change
-        date_modified: Date.now(), 
-        uniqe_id: "qq_dd_bb", //generate with local Device id
-        sorting_order: 1 //append
+        date_modified: Date.now(),
     }
+    if(cell_json.title || cell_json.content)
+        addCell(cell_json);
 
-    addCell(cell_json);
+    $("#overlay").addClass("animatable");
+    closeAdd("#overlay");
 });
 $("#overlay").on("click", function() {
     closeAdd(this);
 }).children().click(function(e) {e.stopPropagation();});
 
-function closeAdd(element) {
+export function closeAdd(element) {
     if($(element).hasClass("triggered"))
         $(element).toggleClass("triggered");
     window.shortcutsAllowed = true;
+    editor_window.delay(500).children("input, textarea").val(undefined);
+
     closeElement();
 }

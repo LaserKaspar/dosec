@@ -35,10 +35,6 @@ db.transaction(function populateDB(tx) {
 
 // migration guide: https://www.w3.org/TR/IndexedDB/
 
-function initDatabase() {
-
-}
-
 const request = indexedDB.open("dosec-data");
 export let db;
 
@@ -46,14 +42,14 @@ request.onupgradeneeded = function() {
     // The database did not previously exist, so create object stores and indexes.
     const db = request.result;
     const store = db.createObjectStore("cells", { autoIncrement: true });
-    const titleIndex = store.createIndex("by_title", "title");
-    const contentIndex = store.createIndex("by_content", "content");
-    const colorIndex = store.createIndex("by_color", "color");
-    const sorting_orderIndex = store.createIndex("by_sorting_order", "sorting_order");
-    const date_createdIndex = store.createIndex("by_date_created", "date_created");
-    const date_modifiedIndex = store.createIndex("by_date_modified", "date_modified");
-    const deviceIDIndex = store.createIndex("by_deviceID", "deviceID");
-    const localIndex = store.createIndex("by_local", "local");
+    const titleIndex = store.createIndex("btitle", "title");
+    const contentIndex = store.createIndex("content", "content");
+    const colorIndex = store.createIndex("color", "color");
+    const sorting_orderIndex = store.createIndex("sorting_order", "sorting_order");
+    const date_createdIndex = store.createIndex("date_created", "date_created");
+    const date_modifiedIndex = store.createIndex("date_modified", "date_modified");
+    const deviceIDIndex = store.createIndex("deviceID", "deviceID");
+    const localIndex = store.createIndex("local", "local");
   
     // Populate with initial data.
     store.add({
@@ -87,16 +83,60 @@ export function addToDB(json) {
     return new Promise(function(resolve, reject) {
         const tx = db.transaction("cells", "readwrite");
         const store = tx.objectStore("cells");
-    
-        var response = store.add({
-            title: json.title, content: json.content, color: json.color, 
-            sorting_order: json.order, date_created: json.date_created, date_modified: json.date_modified, 
-            deviceID: "Test", local: true,
-        });
 
-        response.onsuccess = function(event) {
-            resolve(event.target.result);
+        var index = store.index('sorting_order');
+        var openCursorRequest = index.openCursor(null, 'prev');
+        var sorting_order = 0;
+
+        openCursorRequest.onsuccess = function (event) { 
+            //get max sorting order
+            if (event.target.result) {
+                sorting_order = event.target.result.key + 1;
+                console.log(event.target.result)
+            }
+
+            //add to db
+            var response = store.add({
+                title: json.title, content: json.content, color: json.color,
+                date_modified: json.date_modified,
+                date_created: json.date_created, 
+                sorting_order: sorting_order, deviceID: "Test", local: true,
+            });
+
+            //print to screen
+            response.onsuccess = function(event) {
+                let json = {
+                    "local_id": event.target.result,
+                    "sorting_order" : sorting_order,
+                };
+                resolve(json);
+            };
         };
+    
+        
+
+        function getMaxNumber (callback) {
+            var openReq = indexedDB.open(baseName);
+            openReq.onsuccess = function() {
+                var db = openReq.result;
+                var transaction = db.transaction(objectStoreName, 'readonly');
+                var objectStore = transaction.objectStore(objectStoreName);
+                var index = objectStore.index('revision');
+                var openCursorRequest = index.openCursor(null, 'prev');
+                var maxRevisionObject = null;
+        
+                openCursorRequest.onsuccess = function (event) {
+                    if (event.target.result) {
+                        maxRevisionObject = event.target.result.value; //the object with max revision
+                    }
+                };
+                transaction.oncomplete = function (event) {
+                    db.close();
+                    if(callback) //you'll need a calback function to return to your code
+                        callback(maxRevisionObject);
+                };
+            }
+        }
     });
 
     /*

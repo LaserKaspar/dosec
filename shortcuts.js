@@ -1,11 +1,31 @@
+import { closeElement } from "./url-management.js";
+import { closeAdd } from "./cell-new-edit.js"
+
 window.shortcutsAllowed = true;
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
         console.log("Escape");
-        $(".pager").not(".active").click();
-        $("#overlay.triggered").toggleClass("triggered");
-        window.shortcutsAllowed = true;
+
+        switch (window.location.hash) {
+            case "#add":
+                closeAdd("#overlay");
+                break;
+            default:
+                $(".pager").not(".active").click();
+                break;
+        }
+
+        closeElement();
+        return;
+    }
+    if (event.key === 'Enter' && !event.shiftKey) {
+        console.log("Enter");
+        switch (window.location.hash) {
+            case "#add":
+                $(".button#edit").click();
+        }
+
         return;
     }
 

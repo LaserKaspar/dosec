@@ -1,5 +1,5 @@
 {
-  "background_color": "red",
+  "background_color": "darkgray",
   "name": "Dosec - Secure Todolist",
   "short_name": "Dosec",
   "description": "A simple but powerfull todolist.",
