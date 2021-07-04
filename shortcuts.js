@@ -5,8 +5,6 @@ window.shortcutsAllowed = true;
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
-        console.log("Escape");
-
         switch (window.location.hash) {
             case "#add":
                 closeAdd("#overlay");
@@ -20,7 +18,6 @@ document.addEventListener('keydown', function(event) {
         return;
     }
     if (event.key === 'Enter' && !event.shiftKey) {
-        console.log("Enter");
         switch (window.location.hash) {
             case "#add":
                 $(".button#edit").click();

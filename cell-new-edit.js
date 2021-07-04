@@ -37,7 +37,7 @@ export function closeAdd(element) {
     if($(element).hasClass("triggered"))
         $(element).toggleClass("triggered");
     window.shortcutsAllowed = true;
-    editor_window.delay(500).children("input, textarea").val(undefined);
+    editor_window.delay(500).children("input, textarea").val(undefined).blur();
 
     closeElement();
 }

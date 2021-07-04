@@ -4,22 +4,22 @@ let dropdown;
 $("body").on("click touchend", ".three-dots", function(e) {
     e.stopPropagation();
 
+    dropdown?.remove();
+
     $("body").on("click touchend", unbind);
     function unbind(e) {
         $("body").off("click touchend", unbind);
         dropdown?.remove();
-        console.log($(e.target).closest("div"));
     }
 
-    dropdown?.remove();
     let parent = $(this).parent();
     dropdown = parent.prepend(generateDropdown(parent)).children()[0];
 
     let anchors = $(dropdown).children("a");
 
-    $(anchors[0]).on("click touchend", (e) => { remindElmt(this) });
-    $(anchors[1]).on("click touchend", (e) => { editElmt(this) });
-    $(anchors[2]).on("click touchend", (e) => { deleteElmt(this) });
+    $(anchors[0]).on("click touchend", (e) => { remindElmt(dropdown) });
+    $(anchors[1]).on("click touchend", (e) => { editElmt(dropdown) });
+    $(anchors[2]).on("click touchend", (e) => { deleteElmt(dropdown) });
 });
 
 export function addCellEvents(cell) {
@@ -75,11 +75,7 @@ function editElmt(element) {
 }
 
 function deleteElmt(element) {
-    console.log("Removeing: " + element);
-    
-    const cell = $(element).closest("div")
-    console.log("Removeing: " + cell);
-    
-    removeFromDB(cell.attr("meta-local_id"));
+    const cell = $(element).closest(".cell");
+    removeFromDB(cell.attr("data-local_id"));
     cell.remove();
 }
