@@ -1,4 +1,6 @@
 :root {
+    height: 100%;
+
     --primary: #36393f;
     --secondary: #282b30;
     --background: #1e2124;
@@ -30,6 +32,7 @@ body {
     -ms-user-select: none;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
+    height: inherit;
 }
 
 
@@ -226,6 +229,7 @@ body {
     scrollbar-width: none;
     scroll-snap-type: x mandatory;
     scroll-padding: 10px;
+    height: inherit;
 }
 #wrapper::-webkit-scrollbar {
     display: none;
@@ -234,7 +238,7 @@ body {
 #container {
     display: grid;
     width: 200vw;
-    height: 100vh;
+    height: inherit;
     grid-template-columns: 100vw 100vw;
 
     filter: drop-shadow(0 0 38px rgba(87, 65, 65, 0.2));
@@ -252,7 +256,7 @@ body {
     scroll-snap-align: center;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    height: calc(100vh);
+    height: inherit;
 }
 #scroll-wrapper::-webkit-scrollbar {
     display: none;
@@ -299,7 +303,7 @@ textarea:focus {
     -ms-overflow-style: none;
     scrollbar-width: none;
     padding: 10px 0px 40px;
-    min-height: calc(100vh - 80px); /* 10 + 40 padding + 2 * 10 margin + 10 border*/
+    min-height: calc(100% - 80px); /* 10 + 40 padding + 2 * 10 margin + 10 border*/
 }
 .side.content::-webkit-scrollbar {
     display: none;
@@ -321,6 +325,7 @@ textarea:focus {
     padding: 10px 20px 70px 20px;
     text-align: center;
     outline: none;
+    min-height: calc(100% - 80px - 20px - 10px);;
 }
 #searchbar-search {
     background-color: transparent;
@@ -349,7 +354,7 @@ textarea:focus {
 .handlebars {
     column-count: auto;
     column-width: 250px;
-    min-height: calc(100vh - 153px);
+    min-height: calc(100% - 153px);
     text-align: left;
 }
 .cell {
