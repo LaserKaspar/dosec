@@ -35,7 +35,6 @@ body {
     height: inherit;
 }
 
-
 #overlay {
     position: fixed;
     top: 0;
@@ -310,7 +309,7 @@ textarea:focus {
 .side.content::-webkit-scrollbar {
     display: none;
 }
-.side p {
+.side .paragraph {
     margin: 20px;
     margin-bottom: 0px;
 }
@@ -370,7 +369,7 @@ textarea:focus {
     border-right: 5px solid;
     user-select: text;
 }
-.cell p {
+.cell .paragraph {
     color: var(--font-secondary);
 }
 .metadata {
