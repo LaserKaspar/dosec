@@ -1,4 +1,4 @@
-var UPDATE_Version = '0.1.34';
+var UPDATE_Version = '0.1.35';
 var CACHE_NAME = 'todo-cache-v6'; //change to trigger pwa update
 var FOLDER_NAME = 'post_requests';
 var IDB_VERSION = 1;
