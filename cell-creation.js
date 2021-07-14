@@ -14,8 +14,7 @@ Handlebars.registerHelper('parsecontent', function(text) {
 const cell_handlebar = Handlebars.compile(document.getElementById("cell-handlebar").innerHTML);
 
 $("body").on("click touchend", ".group", function(e) {
-    console.log("test");
-    $("#searchbar-search").focus().val($(this).text()).trigger("onkeyup");
+    $("#searchbar-search").focus().val($(this).text()).keyup();
 });
 
 export async function addCell(json) {
@@ -40,21 +39,22 @@ function insertAndSort($new, sortingOrder) {
         Thanks to: https://stackoverflow.com/questions/14495400/jquery-insert-div-at-right-place-in-list-of-divs#answer-14504086
         Boilerplate to check first/last value
     */
-    if($(".handlebars").children().length == 0) {
+    if($(".handlebars").children().length == 1) {
         $(".handlebars").append($new);
         return;
     }
 
-    const $first = $(".handlebars div:first");
-    if (sortingOrder >= $first.attr('data-sorting_order')) {
-        $new.insertBefore($first);
-        console.log("first");
+    const $first = $(".handlebars .cell:first");
+    if (sortingOrder <= $first.attr('data-sorting_order')) {
+        console.log($first);
+        $new.insertAfter($first);
+        console.log(sortingOrder + " " + $first.attr('data-sorting_order'));
         return;
     }
 
-    const $last = $(".handlebars div:last");
-    if (sortingOrder <= $last.attr('data-sorting_order')) {
-        $new.insertAfter($last);
+    const $last = $(".handlebars .cell:last");
+    if (sortingOrder >= $last.attr('data-sorting_order')) {
+        $new.insertBefore($last);
         console.log("last");
         return;
     }
@@ -62,16 +62,17 @@ function insertAndSort($new, sortingOrder) {
 
     //Fun stuff
     let count = 0;
-    let $div = $(".handlebars div");
+    let $div = $(".handlebars .cell");
     do {
         count++;
         var index = parseInt($div.length / 2)
         var $compare = $div.eq(index);
         var compare = $compare.attr('data-sorting_order');
         if (sortingOrder === compare) {
+            console.log("break");
             break;
         }
-        else if (sortingOrder < compare) {
+        else if (sortingOrder > compare) {
             $div = $div.slice(index, $div.length);
         }
         else {
@@ -85,7 +86,7 @@ function insertAndSort($new, sortingOrder) {
     while ($div.length > 1);
 
     if (sortingOrder === compare || sortingOrder > compare) { $new.insertAfter($compare); }
-    else { $new.insertBefore($compare); }
+    else { $new.insertbefor($compare); }
 }
 
 // "print" db to html

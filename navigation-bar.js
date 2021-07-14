@@ -62,7 +62,7 @@ $(".pager").on("click touchend", function(e) {
 //#endregion
 
 //#region searchBar
-function filterSearch() {
+$("#searchbar-search").keyup(() => {
     var input, filter, container, cell, a, i, txtValue;
     input = document.getElementById("searchbar-search");
     filter = input.value.toUpperCase();
@@ -76,7 +76,16 @@ function filterSearch() {
             cell[i].style.display = "none";
         }
     }
-}
+});
+
+$("#searchbar-search").blur(() => {
+    window.shortcutsAllowed = true;
+});
+
+$("#searchbar-search").focus(() => {
+    window.shortcutsAllowed = false;
+});
+
 //#endregion
 
 //#region colorExclude

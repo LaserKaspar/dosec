@@ -5,6 +5,8 @@ window.shortcutsAllowed = true;
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
+        $(':focus').blur();
+
         switch (window.location.hash) {
             case "#add":
                 closeAdd("#overlay");

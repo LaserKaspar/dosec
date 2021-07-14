@@ -35,17 +35,17 @@
 <body>
     <div id="overlay">
         <div class="edit-element black">
-            <input class="cell-title" placeholder="Title" tabindex="1">
-            <textarea class="cell-content" placeholder="Content" tabindex="2"></textarea>
+            <input class="cell-title" tabindex="1">
+            <textarea class="cell-content" tabindex="2"></textarea>
             <div class="one-line">
                 <span class="choice-field" tabindex="3">
                     <i class="fa fa-calendar datepicker-toggle-button" aria-hidden="true"></i>
-                    <span style="width: 100%; text-align: center;">Add Date/Time</span>
+                    <span style="width: 100%; text-align: center;">Date/Time</span>
                     <input type="datetime-local" class="picker-input cell-date">
                 </span>
                 <span class="choice-field" tabindex="4">
                     <i class="fa fa-circle-o-notch datepicker-toggle-button" aria-hidden="true"></i>
-                    <span style="width: 100%; text-align: center;">Set Color</span>
+                    <span style="width: 100%; text-align: center;">Color</span>
                     <input type="color" class="picker-input cell-color">
                 </span>
             </div>
@@ -154,13 +154,17 @@
             <div class="scroll-wrapper" tabindex="-1">
                 <div class="main content" tabindex="-1">
                     <div id="searchbar-container">
-                        <input type="text" placeholder="Search..." id="searchbar-search" onkeyup="filterSearch()">
+                        <input type="text" placeholder="Search..." id="searchbar-search">
                         <i class="fa fa-search" id="searchbar-icon"></i>
                     </div>
+
                     <span class="button" id="add">+</span>
 
-                    <!-- handlebars -->
                     <div class="handlebars">
+                        <div class="cell borderonly white" data-local_id="-1" data-sorting_order="100">
+                            Add Element
+                        </div>
+                        <!-- dynamic content -->
 
                     </div>
                 </div>
@@ -176,7 +180,7 @@
             {{{bothset title content}}}
 
             <div class="paragraph">
-            {{parsecontent content}}
+                {{parsecontent content}}
             </div>
         </div>
     </script>
