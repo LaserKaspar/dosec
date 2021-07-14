@@ -1,6 +1,7 @@
 import { db } from './manage-db.js'
 import { addCellEvents } from './cell-interactions.js'
 import { addToDB } from './manage-db.js'
+import { magicGrid } from './magic-grid.js'
 
 Handlebars.registerHelper('json', function(context) {return JSON.stringify(context);});
 Handlebars.registerHelper('bothset', function(param1, param2) {return param1 != null && param1 != "" && param2 != null && param2 != "" ? "<br><br>" : ""});
@@ -30,8 +31,10 @@ async function renderCell(user_json, db_json) {
     let json = $.extend(user_json, db_json);
 
     let newCell = $(cell_handlebar(json));
-    insertAndSort(newCell, json.sorting_order);
+    await insertAndSort(newCell, json.sorting_order);
     addCellEvents(newCell);
+
+    magicGrid.positionItems();
 }
 
 function insertAndSort($new, sortingOrder) {
@@ -101,6 +104,9 @@ export function renderCells() {
             cursor.continue();
         } else {
             console.log('Entries all displayed.');
+            
+            magicGrid.listen();
+            magicGrid.positionItems();
         }
     };
 }

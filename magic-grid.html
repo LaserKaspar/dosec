@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script type="text/javascript" src="https://unpkg.com/magic-grid@latest/dist/magic-grid.min.js"></script>
+
+    <style>
+        
+        .cell  {
+            padding: 30px;
+            background-color: antiquewhite;
+            
+            width: calc(100% - 31px - 60px);
+        }
+
+        @media (min-width: 500px) {
+            .cell  {
+                width: calc(50% - 31px - 60px);
+            }
+            }
+
+        @media (min-width: 750px) {
+            .cell v {
+                width: calc(33% - 31px - 60px);
+            }
+        }
+
+        @media (min-width: 900px) {
+            .cell {
+                width: calc(25% - 31px - 60px);
+            }
+        }
+
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="cell">1</div>
+        <div class="cell">2</div>
+        <div class="cell">3<br>new</div>
+        <div class="cell">4</div>
+        <div class="cell">5</div>
+        <div class="cell">6</div>
+        <div class="cell">7</div>
+        <div class="cell">8</div>
+        <div class="cell">9</div>
+        <div class="cell">10</div>
+        <div class="cell">11</div>
+        <div class="cell">12</div>
+        <div class="cell">13</div>
+      </div>
+      
+    <script>
+        let magicGrid = new MagicGrid({
+        container: '.container',
+        animate: true,
+        gutter: 30,
+        static: true,
+        useMin: true
+        });
+
+        magicGrid.listen();
+    </script>
+</body>
+</html>
